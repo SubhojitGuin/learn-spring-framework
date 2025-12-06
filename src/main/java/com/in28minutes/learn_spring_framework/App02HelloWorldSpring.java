@@ -23,6 +23,7 @@ public class App02HelloWorldSpring {
         System.out.println(context.getBean("address2")); // Bean name is used to refer to the Bean
         System.out.println(context.getBean(Address.class)); // Bean type is used to refer to the Bean
         System.out.println(context.getBean(Person.class));
+        System.out.println(context.getBean("person5Qualifier"));
 
         // List all Beans managed by Spring Framework
         Arrays.stream(context.getBeanDefinitionNames()).forEach(System.out::println);

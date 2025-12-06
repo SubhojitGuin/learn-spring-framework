@@ -1,5 +1,6 @@
 package com.in28minutes.learn_spring_framework;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -48,13 +49,21 @@ public class HelloWorldConfiguration {
         return new Person(name, age, address);
     }
 
+    // Multiple candidates can also be resolved using @Qualifier
+    // The address will use the address3 using the qualifier mentioned
+    @Bean
+    public Person person5Qualifier(String name, int age, @Qualifier("address3qualifier") Address address) {
+        return new Person(name, age, address);
+    }
+
     @Bean(name = "address2")
+    @Primary
     public Address address() {
         return new Address("26A South-West Road", "Ohio");
     }
 
     @Bean(name = "address3")
-    @Primary
+    @Qualifier("address3qualifier")
     public Address address3() {
         return new Address("Motinagar", "Hyderabad");
     }
