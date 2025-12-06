@@ -34,12 +34,17 @@ public class HelloWorldConfiguration {
 
     // 2nd way: Parameter Injection (More preferable)
     @Bean
-    public Person person3Parameters(String name, int age, Address address2) { // Here, we use the Bean name - address2
-        return new Person(name, age, address2);
+    public Person person3Parameters(String name, int age, Address address3) { // Here, we use the Bean name - address2
+        return new Person(name, age, address3);
     }
 
     @Bean(name = "address2")
     public Address address() {
         return new Address("26A South-West Road", "Ohio");
+    }
+
+    @Bean(name = "address3")
+    public Address address3() {
+        return new Address("Motinagar", "Hyderabad");
     }
 }
