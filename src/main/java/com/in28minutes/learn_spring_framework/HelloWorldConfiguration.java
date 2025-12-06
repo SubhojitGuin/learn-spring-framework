@@ -2,6 +2,7 @@ package com.in28minutes.learn_spring_framework;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 record Address(String firstLine, String city) { }
 record Person(String name, int age, Address address) { }
@@ -34,8 +35,17 @@ public class HelloWorldConfiguration {
 
     // 2nd way: Parameter Injection (More preferable)
     @Bean
-    public Person person3Parameters(String name, int age, Address address3) { // Here, we use the Bean name - address2
+    public Person person3Parameters(String name, int age, Address address3) { // Here, we use the Bean name - address3
         return new Person(name, age, address3);
+    }
+
+    // Here address is resolved by using the class name - Address
+    // But, there are multiple candidates (Beans with the same type), which causes conflict
+    // To resolve this, use @Primary for higher priority
+    @Bean
+    @Primary
+    public Person person4Parameters(String name, int age, Address address) {
+        return new Person(name, age, address);
     }
 
     @Bean(name = "address2")
@@ -44,6 +54,7 @@ public class HelloWorldConfiguration {
     }
 
     @Bean(name = "address3")
+    @Primary
     public Address address3() {
         return new Address("Motinagar", "Hyderabad");
     }
